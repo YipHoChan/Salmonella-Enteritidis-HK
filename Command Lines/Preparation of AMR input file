@@ -1,1 +1,9 @@
+python3
 
+import pandas as pd
+df = pd.read_csv("AMR_2columns.csv")
+pivot_table = df.pivot_table(index= 'ID', columns = 'Resistance gene', aggfunc = lambda x: 1)
+pivot_table = pivot_table.fillna(0)
+pivot_table.to_csv("AMR_ready.csv")
+
+# save as "csv_AMR_ready_tree_20230914.csv"
