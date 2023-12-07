@@ -1,0 +1,273 @@
+R
+library(networkD3)
+library(dplyr)
+library(htmlwidgets)
+
+links = read.csv("links.csv")
+
+nodes <- data.frame(
+  name=c(as.character(links$source), 
+  as.character(links$target)) %>% unique()
+)
+links$IDsource <- match(links$source, nodes$name)-1 
+links$IDtarget <- match(links$target, nodes$name)-1
+
+sn <- sankeyNetwork(Links = links, Nodes = nodes,
+              Source = "IDsource", Target = "IDtarget",
+              Value = "value", NodeID = "name", fontSize = 20,
+              sinksRight=FALSE)
+
+sn1 <- onRender(
+  sn,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Singapore"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn1$jsHooks$render[[1]]
+
+sn2 <- onRender(
+  sn1,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("UK"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn3 <- onRender(
+  sn2,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("South_Korea"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn4 <- onRender(
+  sn3,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Indonesia"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn5 <- onRender(
+  sn4,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("France"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn6 <- onRender(
+  sn5,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("China"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn7 <- onRender(
+  sn6,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Japan"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn8 <- onRender(
+  sn7,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("USA"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn9 <- onRender(
+  sn8,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Australia"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn10 <- onRender(
+  sn9,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Brazil"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn11 <- onRender(
+  sn10,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Netherlands"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn12 <- onRender(
+  sn11,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("New_Zealand"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn13 <- onRender(
+  sn12,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Thailand"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn14 <- onRender(
+  sn13,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Canada"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn15 <- onRender(
+  sn14,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Vietnam"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn16 <- onRender(
+  sn15,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Chile"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn17 <- onRender(
+  sn16,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("South_Africa"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+
+sn18 <- onRender(
+  sn17,
+  '
+  function(el,x){
+  // select all our node text
+  d3.select(el)
+  .selectAll(".node text")
+  .filter(function(d) { return d.name.startsWith("Peru"); })
+  .attr("x", x.options.nodeWidth - 16)
+  .attr("text-anchor", "end");
+  }
+  '
+)
+sn18
