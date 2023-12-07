@@ -1,0 +1,64 @@
+# use abricate
+abricate --db plasmidfinder Genome/* > abricate_output_plasmidfinder_20230920.csv
+
+# extract key information from "abricate_output_plasmidfinder_20230920.csv" using excel
+
+# prepare the csv input file for R
+python3
+import pandas as pd
+df = pd.read_csv("2columns_plasmidfinder_abricate_20230925.csv")
+pivot_table = df.pivot_table(index= 'ID', columns = 'Plasmid_GENE', aggfunc = lambda x: 1)
+pivot_table = pivot_table.fillna(0)
+pivot_table.to_csv("csv_ready_plasmidfinder_abricate.csv")
+
+# plot
+R
+library(ggtree)
+library(ggplot2)
+library(RColorBrewer)
+library(dplyr)
+
+#Read tree
+tree = read.tree("resultnewick.tre")
+#Read plasmid data
+Plasmid = read.csv("csv_ready_plasmidfinder_abricate_20230925.csv")
+rnames = Plasmid$ID
+Plasmid = Plasmid %>% select (-ID)
+rownames(Plasmid) <- rnames
+Plasmid = as.matrix(Plasmid)
+Mycolnames = c("Col(BS512)", "Col(MG828)", "Col(Ye4449)", "Col156", "Col440I", "Col440II", "Col8282", "ColRNAI", "ColpVC", "IncFIB(S)", "IncFII(S)", "IncFII(pHN7A8)", "IncHI2", "IncHI2A", "IncI", "IncI1", "IncI2", "IncP1", "IncX1", "IncX3", "IncX4", "RepA")
+colnames(Plasmid) = Mycolnames
+#Read geographical information
+map <- read.csv("Phylogenetic_tree_metadata_20230904.csv", header=TRUE)
+
+#Set colours
+Set1 = brewer.pal(9, "Set1")
+Set2 = brewer.pal(12, "Set2")
+#palette1
+palette1 = Set1[3:1]
+#palette2
+palette2 = Set1[4]
+#palette3
+palette3 = Set1[9]
+#palette4
+palette4 = Set2[1:2]
+#palette5
+palette5 = Set1[8:7]
+#combined palette
+combined_palette = c(palette1, palette2, palette3, palette4, palette5)
+my_colors = brewer.pal(8, "Set2")
+
+p1 <- ggtree(tree, layout="fan", branch.length="none") %<+% map + geom_tiplab(size=1.5, aes(color=Location), offset = 45) + geom_tippoint(aes(color=Location)) + scale_color_manual(values = combined_palette) + guides(color = guide_legend(override.aes = list(size = 5)))
+
+p2 = p1 + geom_hilight(node=210, fill=my_colors[2]) + geom_hilight(node=238, fill=my_colors[3]) + geom_hilight(node=294, fill=my_colors[4]) + geom_hilight(node=271, fill=my_colors[5]) + geom_hilight(node=283, fill=my_colors[6])
+
+gheatmap(p2, Plasmid, offset = 3, width = 4, colnames = TRUE, colnames_position = "top", font.size=2.5, colnames_angle=90, hjust=0, legend_title = "Plasmid Replicons") +
+  scale_fill_gradient(low = "#B4D5E4", high = "violetred") +
+  scale_x_ggtree() +
+  scale_y_continuous(expand = c(0.1, 0.8)) +
+  scale_x_discrete(position = "top") +
+  theme(axis.text.x = element_blank(), axis.text.y = element_blank(), axis.title.x = element_text(hjust = 0.1)) + 
+  guides(fill = "none")
+
+#save the high-resolution figure
+quartz.save(file = "Plasmid_Fan_heatmap_20231121.jpg", type = "jpeg", dpi = 1200)
