@@ -1,1 +1,54 @@
+R
+library(ggtree)
+library(ggplot2)
+library(RColorBrewer)
+library(dplyr)
 
+#read tree
+tree = read.tree("resultnewick.tre")
+#read AMR metadata
+AMR = read.csv("csv_AMR_ready_tree_20230914.csv")
+rnames = AMR$ID
+AMR = AMR %>% select (-ID)
+rownames(AMR) <- rnames
+AMR = as.matrix(AMR)
+Mycolnames = c("aac(6')-Iaa", "aac(3)-IId", "aac(3)-IV" ,"aadA1", "aadA17", "aadA2b", "aadA5", "aph(3')-Ia", "aph(3'')-Ib", "aph(4)-Ia", "aph(6)-Id", "blaCTX-M-55", "blaCTX-M-64", "blaOXA-10", "blaTEM-104", "blaTEM-106", "blaTEM-126", "blaTEM-135", "blaTEM-141", "blaTEM-148", "blaTEM-176", "blaTEM-186", "blaTEM-198", "blaTEM-1B", "blaTEM-1D", "blaTEM-206", "blaTEM-207", "blaTEM-209", "blaTEM-210", "blaTEM-214", "blaTEM-216", "blaTEM-217", "blaTEM-220", "blaTEM-230", "blaTEM-234", "blaTEM-30", "blaTEM-33", "blaTEM-34", "blaTEM-57", "blaTEM-70", "mcr-1.1", "mcr-1.26", "lnu(F)", "cmlA1", "floR", "ARR-2", "sul1", "sul2", "sul3", "tet(A)", "dfrA1", "dfrA17", "fosA4", "qnrB19", "qnrS1")
+colnames(AMR) = Mycolnames
+#read location information
+map <- read.csv("Phylogenetic_tree_metadata_20230904.csv", header=TRUE)
+
+Set1 = brewer.pal(9, "Set1")
+Set2 = brewer.pal(12, "Set2")
+#palette1
+palette1 = Set1[3:1]
+#palette2
+palette2 = Set1[4]
+#palette3
+palette3 = Set1[9]
+#palette4
+palette4 = Set2[1:2]
+#palette5
+palette5 = Set1[8:7]
+#combined palette
+combined_palette = c(palette1, palette2, palette3, palette4, palette5)
+my_colors = brewer.pal(8, "Set2")
+
+p1 <- ggtree(tree, branch.length="none") %<+% map + geom_tiplab(size=0.9, aes(color=Location)) + geom_tippoint(size =0.5, aes(color=Location)) + scale_color_manual(values = combined_palette) + guides(color = guide_legend(override.aes = list(size = 5)))
+
+p2 = p1 + geom_hilight(node=210, fill=my_colors[2]) + geom_hilight(node=238, fill=my_colors[3]) + geom_hilight(node=294, fill=my_colors[4]) + geom_hilight(node=271, fill=my_colors[5]) + geom_hilight(node=283, fill=my_colors[6])
+
+gheatmap(p2, AMR, offset = 3, width = 4, colnames = TRUE, colnames_position = "top", font.size=2.5, colnames_angle=90, hjust=0, legend_title = "AMR") +
+  scale_fill_gradient(low = "white", high = "violetred") +
+  scale_x_ggtree() +
+  scale_y_continuous(expand = c(0.1, 0.8)) + xlab("Cluster                       Location") +
+  scale_x_discrete(position = "top") +
+  theme(axis.text.x = element_blank(), axis.text.y = element_blank(), axis.title.x = element_text(hjust = 0.1)) + 
+  guides(fill = "none") +
+  geom_cladelab(node=238, label="E", align=TRUE, offset = -9.6, textcolor='white', barcolor=my_colors[3], barsize=1, geom='label', fill='#B60F23', alpha = .5) +
+  geom_cladelab(node=210, label="D", align=TRUE, offset = -9.6, textcolor='white', barcolor=my_colors[2], barsize=1, geom='label', fill='#B60F23', alpha = .5) +
+  geom_cladelab(node=294, label="C", align=TRUE, offset = -9.6, textcolor='white', barcolor=my_colors[4], barsize=1, geom='label', fill='#B60F23', alpha = .5) +
+  geom_cladelab(node=271, label="B", align=TRUE, offset = -9.6, textcolor='white', barcolor=my_colors[5], barsize=1, geom='label', fill='#B60F23', alpha = .5) +
+  geom_cladelab(node=283, label="A", align=TRUE, offset = -9.6, textcolor='white', barcolor=my_colors[6], barsize=1, geom='label', fill='#B60F23', alpha = .5)
+
+#save the high-resolution figure
+quartz.save(file = "AMR_20231120_preliminary.jpg", type = "jpeg", dpi = 1200)
