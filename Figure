@@ -1,0 +1,6 @@
+library(ggtree)
+library(ggplot2)
+library(RColorBrewer)
+library(dplyr)
+tree = read.tree("resultnewick.tre")
+dd <- read.csv("Phylogenetic_tree_metadata_20230904.csv", header=TRUE)
