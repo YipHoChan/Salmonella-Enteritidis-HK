@@ -1,2 +1,18 @@
 R
 library(ggplot2)
+
+#read data
+monthdata = read.csv("csv_Heat_influence_20231005.csv")
+monthdata2 = monthdata[,-1]
+
+custom_colors <- c("#4DAF4A", "#377EB8", "#E41A1C", "#984EA3", "#66C2A5", "#A65628")
+
+ggplot(data = monthdata2, aes(x = Collection_date)) +
+  geom_bar(aes(fill = Location)) +
+  labs(x = "Collection Date", y = "Count") +
+  facet_wrap(~ Location) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  scale_fill_manual(values = custom_colors)
+
+#save the high-resolution figure
+quartz.save(file = "Heat_influence_facet_20231107.jpg", type = "jpeg", dpi = 1200)
