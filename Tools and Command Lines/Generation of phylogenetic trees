@@ -1,1 +1,108 @@
+#Step 1, run kSNP4.0 on Linux
+#Generate the input file list by running MakeKSNP4infile
+MakeKSNP4infile -indir Genomes -outfile SE.in
 
+
+#Run Kchooser4 to determine the optimum kmer length and to estimate fraction of the kmers found that are core kmers (FCK)
+Kchooser4 -in SE.in
+#Determining the median length of the genomes
+#The median length genome is  Hong_Kong_Sal85_19_contigs
+#Its length is  4752043
+#Used 4.61 seconds so far
+#Initial value of K is  13
+#When k is  13   0.8484554761126869  of the kmers from the median length sequence are unique.
+#When k is  15   0.9792851909016465  of the kmers from the median length sequence are unique.
+#When k is  17   0.9954167125305877  of the kmers from the median length sequence are unique.
+#The optimum value of k is  17
+
+#Used 16.63 seconds so far
+#Calculating the fraction of kmers that are core
+#sampleSize is  1000
+#The number of kmers is  1000
+#The shortest genomes is  United_States_GCA_010818555  its length is  4612211
+#Finished the shortest genome, United_States_GCA_010818555, at 27.9 seconds.
+#There are 965 core kmers.
+#FCK =  0.965
+
+
+#Generate a list of annotated genomes
+genomeNames4 SE.in annotatedGenomes
+
+#Run kSNP4, with all options used
+kSNP4 -in SE.in -outdir Run20230712 -k 17 -annotate annotatedGenomes -ML -NJ -vcf -core -min_frac 0.75 | tee Run20230712Log
+
+
+#Step 2, run GARLI2.0.1 on Windows using the script below:
+
+#garli.conf
+[general]
+datafname = core_SNPs_matrix_revised.fasta
+ofprefix = WHOrun77
+streefname = stepwise
+attachmentspertaxon = 50
+constraintfile = none
+searchreps = 1
+outgroup = 1
+
+outputeachbettertopology = 0
+outputcurrentbesttree = 0
+
+enforcetermconditions = 1
+genthreshfortopoterm = 20000
+scorethreshforterm = 0.05
+significanttopochange = 0.01
+
+writecheckpoints = 0
+restart = 0
+
+datatype = nucleotide
+ratematrix = 6rate
+statefrequencies = estimate
+ratehetmodel = gamma
+numratecats = 4
+invariantsites = estimate
+
+randseed = -1
+availablememory = 512
+logevery = 10
+saveevery = 100
+refinestart = 1
+outputphyliptree = 0
+outputmostlyuselessfiles = 0
+collapsebranches = 1
+
+[master]
+bootstrapreps = 1000
+resampleproportion = 1.0
+
+nindivs = 4
+holdover = 1
+selectionintensity = .5
+holdoverpenalty = 0
+stopgen = 5000000
+stoptime = 5000000
+
+startoptprec = .5
+minoptprec = .01
+numberofprecreductions = 10
+treerejectionthreshold = 20.0
+topoweight = 1.0
+modweight = .05
+brlenweight = 0.2
+randnniweight = 0.1
+randsprweight = 0.3
+limsprweight =  0.6
+intervallength = 100
+intervalstostore = 5
+
+limsprrange = 6
+meanbrlenmuts = 5
+gammashapebrlen = 1000
+gammashapemodel = 1000
+uniqueswapbias = 0.1
+distanceswapbias = 1.0
+
+inferinternalstateprobs = 0
+
+
+#Step 3, run Sumtrees (version 4.6.1) on linux
