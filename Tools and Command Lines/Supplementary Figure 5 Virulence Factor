@@ -1,7 +1,9 @@
 # run abricate
 abricate --db vfdb Genome/* > abricate_output_vfdb_20230920.csv
 
-# preparation of the input file for R
+# extract key information from "abricate_output_vfdb_20230920.csv" using excel
+
+# preparation of the csv input file for R
 python3
 import pandas as pd
 df = pd.read_csv("2columns_vfdb_abricate_20230925.csv")
