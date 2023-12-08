@@ -7,12 +7,16 @@ prokka --outdir Australia_GCA_013218415 --prefix Australia_GCA_013218415 Austral
 ......
 ......
 
+
 ## run Roary
 
 roary *.gff
 
+
 ## plot pangenome_frequency & matrix & pie
+
 python3 roary_plots.py accessory_binary_genes.fa.newick gene_presence_absence.csv
+
 
 ## plot heatmap
 
