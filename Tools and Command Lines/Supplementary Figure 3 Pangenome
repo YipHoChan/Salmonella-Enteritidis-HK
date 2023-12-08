@@ -36,6 +36,20 @@ install_load <- function(Required_Packages) {
   }
 }
 
+library("gplots")
+
+table_input <- read.csv("gene_presence_absence.csv", sep=",", na.strings=c("","NA"))
+table_input <- as.data.frame(table_input)
+table_values <- within(table_input, rm("Gene","Non.unique.Gene.name","No..isolates","No..sequences","Avg.sequences.per.isolate","Genome.Fragment","Order.within.Fragment","Accessory.Fragment","Accessory.Order.with.Fragment","QC","Min.group.size.nuc","Max.group.size.nuc","Avg.group.size.nuc"))
+abscence_presence <- as.matrix(table_values[,-1])
+rownames(abscence_presence) <- table_values[,1]
+abscence_presence[is.na(abscence_presence)] <- 0
+abscence_presence[which(abscence_presence!=0)] <- 1
+a_p_matrix <- mapply(abscence_presence, FUN=as.numeric)
+a_p_matrix <- matrix(data=a_p_matrix, ncol=length(colnames(abscence_presence)), nrow=length(row.names(abscence_presence)))
+row.names(a_p_matrix) <- row.names(abscence_presence)
+colnames(a_p_matrix) <- colnames(abscence_presence)
+
 #Colour labels by locations
 Australia = c("Australia_GCA_010422805",      "Australia_GCA_010730655",     
   "Australia_GCA_013218415",      "Australia_GCA_013218545",     
