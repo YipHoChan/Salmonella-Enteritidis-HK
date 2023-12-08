@@ -18,6 +18,10 @@ roary *.gff
 python3 roary_plots.py accessory_binary_genes.fa.newick gene_presence_absence.csv
 
 
+##############
+
+R
+
 ## plot heatmap
 
 detachAllPackages <- function() {
