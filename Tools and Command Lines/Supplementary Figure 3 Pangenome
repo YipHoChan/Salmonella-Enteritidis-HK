@@ -1,13 +1,21 @@
 ## run Prokka
+
 prokka --outdir Australia_GCA_010422805 --prefix Australia_GCA_010422805 Australia_GCA_010422805.fna
+prokka --outdir Australia_GCA_010730655 --prefix Australia_GCA_010730655 Australia_GCA_010730655.fna
+prokka --outdir Australia_GCA_013218415 --prefix Australia_GCA_013218415 Australia_GCA_013218415.fna
+......
+......
+......
 
 ## run Roary
+
 roary *.gff
 
-## plot Pangenome_frequency & matrix & pie
+## plot pangenome_frequency & matrix & pie
 python3 roary_plots.py accessory_binary_genes.fa.newick gene_presence_absence.csv
 
 ## plot heatmap
+
 detachAllPackages <- function() {
   basic.packages <- c("package:stats","package:graphics","package:grDevices","package:utils","package:datasets","package:methods","package:base")
   package.list <- search()[ifelse(unlist(gregexpr("package:",search()))==1,TRUE,FALSE)]
