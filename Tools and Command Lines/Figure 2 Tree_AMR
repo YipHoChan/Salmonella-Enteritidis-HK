@@ -1,5 +1,6 @@
 R
-#Figure 2A
+
+# Figure 2A
 
 library(ggtree)
 library(ggplot2)
@@ -48,7 +49,7 @@ p3 +
 quartz.save(file = "Fantree_ST_20231128.pdf", type = "pdf", dpi = 1200)
 
 
-#Figure 2B
+# Figure 2B
 scatterpiedata = read.csv("Scatterpie_input_20231011.csv")
 bardata = t(scatterpiedata)
 bardata2 = bardata[-c(1,2,3),]
@@ -65,7 +66,7 @@ legend("topright", row_names, cex = 1.5, fill = Cluster_colours)
 quartz.save(file = "PG_cluster_bar_A_20231013.jpg", type = "jpeg", dpi = 1200)
 
 
-#Figure 2C
+# Figure 2C
 library(pacman)
 p_load(assertthat,tidyverse,ggraph,igraph,ggmap,scatterpie,RColorBrewer)
 
