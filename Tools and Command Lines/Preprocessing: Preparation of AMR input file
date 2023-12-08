@@ -6,11 +6,11 @@ df = pd.read_csv("AMR_2columns.csv")
 pivot_table = df.pivot_table(index= 'ID', columns = 'Resistance gene', aggfunc = lambda x: 1)
 pivot_table = pivot_table.fillna(0)
 pivot_table.to_csv("AMR_ready.csv")
-
-# save as "csv_AMR_ready_tree_20230914.csv"
+#further revision and save as "csv_AMR_ready_tree_20230914.csv"
 
 
 # AMR phenotype
 df = pd.read_csv("AMR_Location_Phenotype_2columns.csv")
 pivot_table = df.pivot_table(index='id', columns='Phenotype', aggfunc='size', fill_value=0)
 pivot_table.to_csv("AMR_Location_Phenotype_ready.csv")
+#further revision and save as "AMR_Location_Phenotype_ready2.csv"
