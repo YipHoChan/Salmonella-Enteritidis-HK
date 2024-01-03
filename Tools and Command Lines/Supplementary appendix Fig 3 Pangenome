@@ -449,4 +449,4 @@ lay <- rbind(c(1,1,2),
 
 grid.arrange(p1 + theme(axis.text.y = element_text(size = 2, color = Label_colours$Colour)),p2,t1, layout_matrix = lay)
 
-quartz.save(file = "Roary_summary_colour_20231012.jpg", type = "jpeg", dpi = 1200)
+
