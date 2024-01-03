@@ -60,5 +60,4 @@ gheatmap(p2, Plasmid, offset = 3, width = 4, colnames = TRUE, colnames_position 
   theme(axis.text.x = element_blank(), axis.text.y = element_blank(), axis.title.x = element_text(hjust = 0.1)) + 
   guides(fill = "none")
 
-#save the high-resolution figure
-quartz.save(file = "Plasmid_Fan_heatmap_20231121.jpg", type = "jpeg", dpi = 1200)
+
