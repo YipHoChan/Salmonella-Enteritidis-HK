@@ -14,5 +14,3 @@ ggplot(data = monthdata2, aes(x = Collection_date)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   scale_fill_manual(values = custom_colors)
 
-#save the high-resolution figure
-quartz.save(file = "Heat_influence_facet_20231107.jpg", type = "jpeg", dpi = 1200)
