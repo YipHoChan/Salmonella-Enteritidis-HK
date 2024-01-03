@@ -56,6 +56,8 @@ my_colors = brewer.pal(8, "Set2")
 
 p1 <- ggtree(tree, branch.length="none") %<+% map + geom_tiplab(size=0.9, aes(color=Location)) + geom_tippoint(size =0.5, aes(color=Location)) + scale_color_manual(values = combined_palette) + guides(color = guide_legend(override.aes = list(size = 5)))
 
+p2 = p1 + geom_hilight(node=210, fill=my_colors[2]) + geom_hilight(node=238, fill=my_colors[3]) + geom_hilight(node=294, fill=my_colors[4]) + geom_hilight(node=271, fill=my_colors[5]) + geom_hilight(node=283, fill=my_colors[6])
+
 gheatmap(p2, VF, offset = 3, width = 4, colnames = TRUE, colnames_position = "top", font.size=2, colnames_angle=90, hjust=0, legend_title = "Virulence Factor") +
   scale_fill_gradient(low = "#F1E395", high = "#650306") +
   scale_x_ggtree() +
