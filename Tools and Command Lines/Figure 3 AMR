@@ -69,8 +69,7 @@ ggplot(nodes) + country_shape +
             size=4,color="black",fontface="bold")+
   mapcoords + maptheme + guides(color = "none") + labs(fill = "AMR Phenotypes")
 
-#save the high-resolution figure
-quartz.save(file = "AMR_Map_20231010_revised.jpg", type = "jpeg", dpi = 1200)
+
 
 # Figure 3B
 R
@@ -125,8 +124,7 @@ gheatmap(p2, AMR, offset = 3, width = 4, colnames = TRUE, colnames_position = "t
   geom_cladelab(node=271, label="B", align=TRUE, offset = -9.6, textcolor='white', barcolor=my_colors[5], barsize=1, geom='label', fill='#B60F23', alpha = .5) +
   geom_cladelab(node=283, label="A", align=TRUE, offset = -9.6, textcolor='white', barcolor=my_colors[6], barsize=1, geom='label', fill='#B60F23', alpha = .5)
 
-#save the high-resolution figure
-quartz.save(file = "AMR_20231120_preliminary.jpg", type = "jpeg", dpi = 1200)
+
 
 
 # Figure 3C
