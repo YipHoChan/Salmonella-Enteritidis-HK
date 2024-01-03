@@ -18,6 +18,8 @@ pivot_table.to_csv("AMR_Location_Phenotype_ready.csv")
 
 
 
+R
+
 # Figure 3A
 library(pacman)
 p_load(assertthat,tidyverse,ggraph,igraph,ggmap,scatterpie,RColorBrewer)
