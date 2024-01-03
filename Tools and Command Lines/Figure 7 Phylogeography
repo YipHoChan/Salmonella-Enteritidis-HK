@@ -53,5 +53,4 @@ ggplot(nodes) + country_shape +
             size = 3.2, color = "black", fontface = "bold") +
   mapcoords + maptheme + theme(legend.position = c(0.08, 0.2), legend.direction = "vertical")
 
-#save the high-resolution figure
-quartz.save(file = "Phylogeography_20231026_2.jpg", type = "jpeg", dpi = 1200)
+
