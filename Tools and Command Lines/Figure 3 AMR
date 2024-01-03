@@ -157,6 +157,6 @@ MDR <- c(`61.8% One`=128, `6.8% Two`=14,
 			`23.2% Three`=48, `6.3% Four`=13, `1.4% Five`=3, 
 			`0.5% Eight`=1)
 
-waffle(MDR, rows=5, size=0.9,
+waffle(MDR, rows=10, size=0.9,
 	title="Number of resistance to antibiotic classes", 
 	xlab="Total = 207")
