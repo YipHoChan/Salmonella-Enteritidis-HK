@@ -45,8 +45,7 @@ p3 +
   geom_cladelab(node=271, label="B", align=TRUE, geom='label', fill='#B60F23', alpha = .5, offset = -3, textcolor='white', barsize=0, fontsize=5) +
   geom_cladelab(node=283, label="A", align=TRUE, geom='label', fill='#B60F23', alpha = .5, offset = -3, textcolor='white', barsize=0, fontsize=5)
 
-#save the high-resolution figure
-quartz.save(file = "Fantree_ST_20231128.pdf", type = "pdf", dpi = 1200)
+
 
 
 # Figure 2B
@@ -62,8 +61,7 @@ Cluster_colours = c("white", "#FFD92F", "#A6D854", "#E78AC3", "#FC8D62", "#8DA0C
 barplot(bardata2, xlab = "Location", ylab = "Number", col = Cluster_colours)
 legend("topright", row_names, cex = 1.5, fill = Cluster_colours)
 
-#save the high-resolution figure
-quartz.save(file = "PG_cluster_bar_A_20231013.jpg", type = "jpeg", dpi = 1200)
+
 
 
 
