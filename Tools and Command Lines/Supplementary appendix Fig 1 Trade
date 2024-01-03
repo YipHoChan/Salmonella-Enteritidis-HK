@@ -31,7 +31,6 @@ sn1 <- onRender(
   '
 )
 
-sn1$jsHooks$render[[1]]
 
 sn2 <- onRender(
   sn1,
