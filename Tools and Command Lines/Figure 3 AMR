@@ -94,7 +94,7 @@ ggplot(nodes) + country_shape +
 
 
 # Figure 3B
-R
+
 library(ggtree)
 library(ggplot2)
 library(RColorBrewer)
