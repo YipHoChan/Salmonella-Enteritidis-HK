@@ -26,6 +26,7 @@ p_load(assertthat,tidyverse,ggraph,igraph,ggmap,scatterpie,RColorBrewer)
 
 nodes = read.csv("LonLatrmHKlabel.csv")
 nodes$name[nodes$name == "China: Hanzhong"] <- "Mainland China"
+nodes$name[nodes$name == "United Kingdom"] <- "UK"
 
 edges = read.csv("edges.csv")
 
