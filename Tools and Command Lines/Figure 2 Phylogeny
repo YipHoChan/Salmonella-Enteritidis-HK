@@ -40,7 +40,7 @@ p3 +
 scatterpiedata = read.csv("Scatterpie_input_20231011.csv")
 bardata = t(scatterpiedata)
 bardata2 = bardata[-c(1,2,3),]
-column_names = c("Hong Kong", "China: Hanzhong", "Taiwan", "United Kingdom", "Canada", "USA", "Australia", "South Africa")
+column_names = c("Hong Kong SAR", "Mainland China", "Taiwan", "United Kingdom", "Canada", "USA", "Australia", "South Africa")
 row_names = c("Unclassified", "Cluster A", "Cluster B", "Cluster C", "Cluster D", "Cluster E")
 colnames(bardata2) = column_names
 rownames(bardata2) = row_names
