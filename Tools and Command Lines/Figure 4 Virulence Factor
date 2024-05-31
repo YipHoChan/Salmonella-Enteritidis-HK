@@ -36,22 +36,10 @@ rownames(VF) <- rnames
 VF = as.matrix(VF)
 #Read geographical information
 map <- read.csv("Phylogenetic_tree_metadata_20230904.csv", header=TRUE)
+map$Location[map$Location == "China:Hanzhong"] <- "Mainland China"
+map$Location[map$Location == "United Kingdom"] <- "UK"
 
-#Set tree colours
-Set1 = brewer.pal(9, "Set1")
-Set2 = brewer.pal(12, "Set2")
-#palette1
-palette1 = Set1[3:1]
-#palette2
-palette2 = Set1[4]
-#palette3
-palette3 = Set1[9]
-#palette4
-palette4 = Set2[1:2]
-#palette5
-palette5 = Set1[8:7]
-#combined palette
-combined_palette = c(palette1, palette2, palette3, palette4, palette5)
+combined_palette = c("#4DAF4A", "#377EB8", "#984EA3", "#E41A1C", "#999999", "#66C2A5", "#FC8D62", "#A65628", "#F781BF")
 my_colors = brewer.pal(8, "Set2")
 
 p1 <- ggtree(tree, branch.length="none") %<+% map + geom_tiplab(size=0.9, aes(color=Location)) + geom_tippoint(size =0.5, aes(color=Location)) + scale_color_manual(values = combined_palette) + guides(color = guide_legend(override.aes = list(size = 5)))
