@@ -25,6 +25,8 @@ library(pacman)
 p_load(assertthat,tidyverse,ggraph,igraph,ggmap,scatterpie,RColorBrewer)
 
 nodes = read.csv("LonLatrmHKlabel.csv")
+nodes$name[nodes$name == "China: Hanzhong"] <- "Mainland China"
+
 edges = read.csv("edges.csv")
 
 edges <- edges%>%mutate(category=as.factor(category))
