@@ -116,7 +116,7 @@ colnames(AMR) = Mycolnames
 #read location information
 map <- read.csv("Phylogenetic_tree_metadata_20230904.csv", header=TRUE)
 map$Location[map$Location == "China:Hanzhong"] <- "Mainland China"
-nodes$name[nodes$name == "United Kingdom"] <- "UK"
+map$name[map$name == "United Kingdom"] <- "UK"
 
 combined_palette = c("#4DAF4A", "#377EB8", "#984EA3", "#E41A1C", "#999999", "#66C2A5", "#FC8D62", "#A65628", "#F781BF")
 my_colors = brewer.pal(8, "Set2")
