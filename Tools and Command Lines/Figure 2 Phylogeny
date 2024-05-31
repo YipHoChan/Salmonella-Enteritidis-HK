@@ -10,6 +10,7 @@ library(dplyr)
 tree = read.tree("resultnewick.tre")
 dd <- read.csv("Phylogenetic_tree_metadata_20230904.csv", header=TRUE)
 dd$Location[dd$Location == "China:Hanzhong"] <- "Mainland China"
+dd$Location[dd$Location == "United Kingdom"] <- "UK"
 
 ST = read.csv("csv_ST.csv")
 rnames = ST$ID
@@ -17,7 +18,7 @@ ST = ST %>% select (-ID)
 rownames(ST) = rnames
 ST = as.matrix(ST)
 
-combined_palette = c("#4DAF4A", "#377EB8", "#984EA3", "#E41A1C", "#999999", "#66C2A5", "#FC8D62", "#F781BF", "#A65628")
+combined_palette = c("#4DAF4A", "#377EB8", "#984EA3", "#E41A1C", "#999999", "#66C2A5", "#FC8D62", "#A65628", "#F781BF")
 my_colors = brewer.pal(8, "Set2")
 
 p1 <- ggtree(tree, layout="fan", branch.length="none") %<+% dd + geom_tiplab(size=1.3, aes(color=Location), offset = 0.4) + geom_tippoint(aes(color=Location)) + scale_color_manual(values = combined_palette) + guides(color = guide_legend(override.aes = list(size = 5))) 
@@ -40,7 +41,7 @@ p3 +
 scatterpiedata = read.csv("Scatterpie_input_20231011.csv")
 bardata = t(scatterpiedata)
 bardata2 = bardata[-c(1,2,3),]
-column_names = c("Hong Kong SAR", "Mainland China", "Taiwan", "United Kingdom", "Canada", "USA", "Australia", "South Africa")
+column_names = c("Hong Kong SAR", "Mainland China", "Taiwan", "UK", "Canada", "USA", "Australia", "South Africa")
 row_names = c("Unclassified", "Cluster A", "Cluster B", "Cluster C", "Cluster D", "Cluster E")
 colnames(bardata2) = column_names
 rownames(bardata2) = row_names
