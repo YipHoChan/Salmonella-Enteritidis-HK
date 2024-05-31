@@ -4,14 +4,7 @@ library(pacman)
 p_load(assertthat,tidyverse,ggraph,igraph,ggmap,scatterpie,RColorBrewer)
 
 nodes = read.csv("LonLat.csv")
-edges = read.csv("edges.csv")
-edges <- edges%>%mutate(weight=as.numeric(weight))
-edges_for_plot <- edges%>%
-  inner_join(nodes%>%select(id, lon, lat),by=c("from"="id"))%>%
-  rename(x=lon, y=lat)%>%
-  inner_join(nodes%>%select(id,lon,lat),by=c("to"="id"))%>%
-  rename(xend=lon,yend=lat)
-assert_that(nrow(edges_for_plot)==nrow(edges))
+edges_for_plot = read.csv("edges_for_plot.csv")
 
 #Map sea
 maptheme <- theme(
@@ -34,15 +27,16 @@ mapcoords <- coord_fixed(xlim=c(-150,180), ylim=c(-55,80))
 
 breaks_r = c(1, 10, 50, 100, 200)
 labels <- cut(edges_for_plot$weight, breaks_r, labels = c("<=10", "11-50", "51-100", "101-200"), include.lowest = TRUE)
-edges_for_plot$newweight = c(1, 1, 1, 1, 1, 1, 3, 1, 1, 1 ,2, 2, 2, 3, 2,1,1,4)
+edges_for_plot$newweight = c(1, 1, 1, 1, 1, 1, 3, 1, 1, 2, 2, 2, 2, 1,4)
 
 # Define custom color palette
 color_palette <- c("#0472D4", "#F58E11", "#D60108", "#680265")
+
 #Plot
 ggplot(nodes) + country_shape +
   geom_curve(aes(x = x, y = y, xend = xend, yend = yend, color = as.factor(labels)),
              data = edges_for_plot, curvature = 0.25, alpha = 1,
-             arrow = arrow(angle = 25, type = "open", length = unit(0.018, "npc") * 0.9 * edges_for_plot$newweight),
+             arrow = arrow(angle = 25, type = "open", length = unit(0.018, "npc") * 0.6 * edges_for_plot$newweight),
              size = 0.55 * edges_for_plot$newweight) +
   scale_color_manual(values = color_palette, 
                      name = "Number of transfers") +
@@ -52,5 +46,4 @@ ggplot(nodes) + country_shape +
   geom_text(aes(x = lon, y = lat, label = name), hjust = 1, vjust = 0, nudge_x = 2.5, nudge_y = 2.5,
             size = 3.2, color = "black", fontface = "bold") +
   mapcoords + maptheme + theme(legend.position = c(0.08, 0.2), legend.direction = "vertical")
-
 
