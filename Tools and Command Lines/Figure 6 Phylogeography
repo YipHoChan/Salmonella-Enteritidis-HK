@@ -1,4 +1,4 @@
-###Figure 7A
+###Figure 6A
 
 # BEAST 2 (MEGA11 → BEAUti → BEAST → Trace → TreeAnnotator) → FigTree
 
@@ -6,7 +6,7 @@
 
 
 
-###Figure 7B
+###Figure 6B
 R
 
 library(pacman)
